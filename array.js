@@ -13,8 +13,25 @@ const array = {
     
       }
       return -1;
-    }
+    },
+    unique: (arr,equality = object.deepEqual) =>{
+      let out = [];
+      let isPresent = null;
+       for(let i=0, max=arr.length;i<max;i++) {
+         isPresent = false;
+        for(let k=0; k < i; k++) {
+          if(equality(arr[k], arr[i])) {
+             isPresent = true;
+          }
+        }
+        if(!isPresent) {
+          out.push(arr[i])
+        }
+      }
+       return out;
+     }
 };
+
 
 
 exports.array = array;

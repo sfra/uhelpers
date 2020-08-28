@@ -1,4 +1,4 @@
-# Some js helpers.
+# uhelpers.
 
 
 This repository (index.js file) will consist of commonly used js function, which are often unnecessary rewritten
@@ -7,7 +7,7 @@ in many projects (or the whole libraries like lodash (great and useful) are adde
 
 ## Installlation
 ````bash
-npm install --save @sz.frankyy/helpers
+npm install --save @sz.frankyy/uhelpers
 ````
 
 This micro library does not require any dependencies.
@@ -15,9 +15,11 @@ This micro library does not require any dependencies.
 ## Api
 So far it has been provided
 
-## boolean deepEqual([any],[any])
+## object 
+### Methods
+## boolean uhelpers.object.deepEqual([any],[any])
 Returns a fresh copy (without any references) of a given object
-## [T] deepCopy([T])
+## [T] uhelpers.object.deepCopy([T])
 
 It makes recursive copy of on js item. In the case of instances of collections classes for example,
 the shortest method 
@@ -34,7 +36,7 @@ does not pass an exam. That is terminal returns
 >[ {}, 'Hello' ]
 ````
 
-## [obj] deepMerge([obj],[obj],[obj]={})
+## [obj] uhelpers.object.deepMerge([obj],[obj],[obj]={})
 
 Takes the two js objects and applies a merge according to the last one object. This object contains (called config)
 the rules what to do when two objects have the same defined property which differs. Each rule has a schema
@@ -220,7 +222,7 @@ const fs = require('fs');
 let p0 = JSON.parse(fs.readFileSync('../interface/package.json').toString());
 let p1 = JSON.parse(fs.readFileSync('../array4/package.json').toString());
 
-fs.writeSync('package.json',JSON.stringify(helpers.deepMerge(p0,p1,{string:(a,b)=> `${a}<<<>>>${b}`} ),null,2));
+fs.writeSync('package.json',JSON.stringify(uhelpers.object.deepMerge(p0,p1,{string:(a,b)=> `${a}<<<>>>${b}`} ),null,2));
 ````
 we obtain as a result package.json file
 
@@ -323,38 +325,50 @@ Moreover, if the function
 then the depencies would be automatically set to the min version. For example, if "reset-css": "^3.0.2", and "reset-css": "^3.2.1" occur in two
 package.json file, then "reset-css": "^3.0.2" would be choosen.
 
-## [Promise] sleep([number])
+
+## [Array] uhelpers.object.findPath = (ob [object], key [string], paths=[] [Array], path = '' [Array])
+
+Computes the path to the key in the object ob. For example the path of 'z' in {x: {u: 11, b: {z: 11}}} is 'x.b'. Therefore findPathInObject({x: {u: 11}, b: {z: 11}}, 'z') will equal
+
+['x.b']. The paths of 'z' in {x: {u: 11, b: {z: 11}}, c: [23,5,6,7, {z: []}]} is ['x.b', 'c.4'].
+
+
+## run
+### Methods
+## [Promise] uhelpers.run.sleep([number])
 Sleep for some time (the only one argument express it in miliseconds). Can be used in async funtions:
 ````javascript
 async ()=>{
     console.log('One');
-    await sleep(1000);
+    await uhelpers.run.sleep(1000);
     console.log('Two');
-    await sleep(1000);
+    await uhelpers.run.sleep(1000);
     console.log('Three');
 }
 
 ````
 
-## [number] whichOne([object],[array],[boolean]=false)
+## array
+### Methods
+## [number] uhelpers.array.whichOne([object],[array],[boolean]=false)
 
 Returns an index of the array on which an object occurs. If the object is not present it returns -1.
 If the boolean argument if true an equality is understood as equality by reference (identity of objects). 
 
+##  [Array] uhelpers.array.unique([Array], [function]=uhelpers.object.deepEqual)
+Return an array consisting of unique elements from a given one (the first argument). In a case of objects are present, equality is counted an equality given by an a second argument (as a default uhelpers.object.deepEqual is used).
 
 
-## [string] toFixedString=([string or number], [string], [string]='',[string]='',[string]=' ');
+
+## string
+### Methods
+## [string] uhelpers.string.toFixedString=([string or number], [string], [string]='',[string]='',[string]=' ');
 
 
 Completes a given string by the character given the the last argument and ads an prefix and suffix.
 It can be used in console application to improve data presentation. 
 
 
-## [Array] findPathInObject = (ob [object], key [string], paths=[] [Array], path = '' [Array])
-
-Computes the path to the key in the object ob. For example the path of 'z' in {x: {u: 11, b: {z: 11}}} is 'x.b'. Therefore findPathInObject({x: {u: 11}, b: {z: 11}}, 'z') will equal
-
-['x.b']. The paths of 'z' in {x: {u: 11, b: {z: 11}}, c: [23,5,6,7, {z: []}]} is ['x.b', 'c.4'].
 
 
 
