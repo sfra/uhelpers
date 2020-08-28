@@ -6,3 +6,4 @@
 dist/*
 !dist/_redirects
 node_modules
+.vscode/*
